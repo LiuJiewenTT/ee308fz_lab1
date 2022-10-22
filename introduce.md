@@ -47,8 +47,9 @@ I made at least 10 projects so far, though some is of big scale and some is of s
 | The Aim of This Assignment | Self Introduction |
 | MU STU ID and FZU STU ID | 20123850_832001217 |
 
-url on github.com of this passage(download): https://liuljwtt.github.io/ee308fz_lab1/introduce.md
+url on github.com of this passage(download): https://liuljwtt.github.io/ee308fz_lab1/introduce.md<br/>
 url on github.com of this passage(view with github md): https://github.com/LiuJiewenTT/ee308fz_lab1/tree/main/introduce.md
 
-url on github.com of this passage(view as html):https://liuljwtt.github.io/ee308fz_lab1/introduce.html
+url on github.com of this passage(view as html): https://liuljwtt.github.io/ee308fz_lab1/introduce.html<br/>
+url on csdn.net of this passage(view as html): https://bbs.csdn.net/topics/608744535
 
