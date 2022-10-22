@@ -8,8 +8,8 @@ Hello, everyone! I'm Liu_Jiewen, a coding :computer: amateur.
 
 I already have some blogs, check through:
 
-- [Github.com](https://github.com/LiuJiewenTT)[^1]
-  Github [blog page](https://liujiewentt.github.io/)
+- [Github.com](https://github.com/LiuJiewenTT)
+  Github [blog page](https://liujiewentt.github.io/)[^1]
 
 - [![CSDN](https://img-home.csdnimg.cn/images/20201124032511.png)](https://blog.csdn.net/qq_42944198?spm=1010.2135.3001.5343) homepage
 
@@ -37,7 +37,7 @@ I made at least 10 projects so far, though some is of big scale and some is of s
 
 (iframe might not display as expected.)
 
-<iframe src="https://github.com/LiuJiewenTT" width="800" height="400" frameborder="1">Github page</iframe>
+<iframe src="https://liujiewentt.github.io" width="800" height="400" frameborder="1">Github page</iframe>
 
 ## End
 
