@@ -1,4 +1,4 @@
-from global_vars import *
+import global_vars
 
 # Constants
 MODE_COMMON = 0
@@ -26,7 +26,7 @@ class DevMode:
 sampleModeCommon = DevMode(MODE_COMMON)
 sampleModeDebug = DevMode(MODE_DEBUG)
 
-def _modeUtilize(self:DevMode):
+def _modeUtilize(self: DevMode):
     if self.isDebug():
         return sampleModeDebug
     else:
@@ -51,7 +51,13 @@ class ExtClass():
     exti = 0
     mode: DevMode = sampleModeCommon
 
-    def __init__(self, mode=gmode):
+    def __init__(self, mode: DevMode=None):
+        if mode is None:
+            mode = global_vars.gmode
+        # This case should write like this, or the parameter will be None value.
+        # print(global_vars.gmode)
+        # print(global_vars.gmode is None)
+        # print(mode)
         self.mode = mode.utilize()
 
     def extSelect(self, fileName:str=''):

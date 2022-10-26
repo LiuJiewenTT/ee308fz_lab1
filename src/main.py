@@ -1,9 +1,9 @@
 import os.path as osp
 import sys
-from global_vars import *
+import global_vars
 import common
 
-gmode = common.DevMode(common.MODE_GDEBUG)
+global_vars.gmode = common.DevMode(common.MODE_GDEBUG)
 
 print(sys.argv)
 
@@ -13,7 +13,7 @@ flag = False
 fileName = sys.argv[1]
 print(fileName)
 # Check ext
-fileExt:common.ExtClass = common.ExtClass(gmode)
+fileExt:common.ExtClass = common.ExtClass()
 # fileExt.mode.setMode(common.MODE_COMMON)
 fileExt.extSelect(fileName)
 # open
