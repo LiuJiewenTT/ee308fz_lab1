@@ -24,3 +24,10 @@
     except FileNotFoundError as fe:
         estr = OINFOHEADER + f'{fe}'
         raise FileNotFoundError(estr)
+
+
+// function header: debug env (example)
+    def countKw(keys, strs:list):
+        mode: DevMode
+        mode = global_vars.gmode
+        mode = mode.utilize()

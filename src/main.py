@@ -3,18 +3,29 @@ import sys
 import global_vars
 import common
 
-global_vars.gmode = common.DevMode(common.MODE_GDEBUG)
 OINFOHEADER = f'[{__name__}]: '
+global_vars.gmode = common.DevMode(common.MODE_GDEBUG)
+mode = global_vars.gmode.utilize()
+# print(mode)
+# print(global_vars.gmode)
 
-print(sys.argv)
+if mode.isDebug():
+    print(sys.argv)
 
 # Open File
 f = None
-fileName = sys.argv[1]
-print(OINFOHEADER + f'fileName: {fileName}')
+try:
+    fileName = sys.argv[1]
+except IndexError as ie:
+    estr = OINFOHEADER + f'No file input, no first parameter given. {ie}'
+    raise IndexError(estr)
 programDir = osp.dirname(sys.argv[0])
-print(OINFOHEADER + 'programPath: ' + programDir)
 dirsep = '\\' if sys.platform=='win32' else '/'
+
+if mode.isDebug():
+    print(OINFOHEADER + f'fileName: {fileName}')
+    print(OINFOHEADER + 'programPath: ' + programDir)
+
 # Check ext
 fileExt: common.ExtClass = common.ExtClass()
 # fileExt.mode.setMode(common.MODE_DEBUG)
@@ -27,7 +38,8 @@ except FileNotFoundError as fe:
     raise FileNotFoundError(estr)
 # open successful
 
-print(OINFOHEADER + f'fext={fileExt.ext, fileExt.exti}')
+if mode.isDebug():
+    print(OINFOHEADER + f'fext={fileExt.ext, fileExt.exti}')
 
 # read keywords
 keys = []
@@ -39,7 +51,8 @@ try:
 except FileNotFoundError as fe:
     estr = OINFOHEADER + f'{fe}'
     raise FileNotFoundError(estr)
-print(OINFOHEADER + 'keys: ' , keys)
+if mode.isDebug():
+    print(OINFOHEADER + 'keys: ' , keys)
 
 # read file data
 strs = f.readlines()

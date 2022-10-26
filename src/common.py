@@ -62,6 +62,7 @@ class ExtClass():
         # print(mode)                           # None, when is written in parameter list.
 
         self.mode = mode.utilize()
+        # print(self.mode)
 
     def extSelect(self, fileName:str=''):
         # debug code
@@ -86,12 +87,35 @@ class ExtClass():
 
 
 def countKw(keys, strs:list):
+    mode: DevMode
+    mode = global_vars.gmode
+    mode = mode.utilize()
+    # print(mode)
+    # print(global_vars.gmode)
+    # mode.setMode(MODE_DEBUG)
+
     cnt1 = 0
     cnt2 = 0
+    keylength = {}
+    for i in keys:
+        keylength[i] = len(i)
     for i in strs:
         cnt1 = 0
         for j in keys:
             i: str
-            cnt1 += i.count(j)
+            # k = i.count(j)
+            a = k = 0
+            while True:
+                # break
+                a = i.find(j,a)
+                if a == -1:
+                    break
+                a += keylength[j]
+                if i[a].isalpha() is False:
+                    k += 1
+            cnt1 += k
+            if mode.isDebug():
+                if cnt1 != 0 and k != 0:
+                    print(OINFOHEADER + f'[{cnt2}->{cnt2 + cnt1}][{j} + {k}] - {i}')
         cnt2 += cnt1
     return cnt2
