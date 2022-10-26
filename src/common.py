@@ -1,4 +1,5 @@
 import global_vars
+import amusingCodes3rd
 
 OINFOHEADER = f'[{__name__}]: '
 
@@ -9,26 +10,46 @@ MODE_GDEBUG = 2
 
 class DevMode:
     mode = MODE_COMMON
+    ifConst = False
 
-    def __init__(self, ModeValue):
+    def __init__(self, ModeValue=mode, beConst=False):
         self.mode = ModeValue
+        self.ifConst = beConst
 
     def setMode(self, ModeValue):
-        self.mode = ModeValue
+        if self.ifConst is False:
+            # This writing is the same with putting self.mode=ModeValue here, but I'm letting you avoiding that thought.
+            ret = self
+            ret.mode = ModeValue
+        else:
+            if self.isDebug():
+                wstr = OINFOHEADER + f'Warning! You''re trying to change value of constant!'
+                print(wstr)
+            else:
+                # print(self, self.ifConst)
+                pass
+            ret = self.dupeInstance()
+            ret.mode = ModeValue
+        return ret
 
     def isDebug(self):
+        # print(self)
         return self.mode==MODE_DEBUG
 
     def isGDebug(self):
         return self.mode==MODE_GDEBUG
 
     def utilize(self):
-        return _modeUtilize(self)
+        return modeUtilize(self)
 
-sampleModeCommon = DevMode(MODE_COMMON)
-sampleModeDebug = DevMode(MODE_DEBUG)
+    def dupeInstance(self):
+        temp = DevMode(self.mode)
+        return temp
 
-def _modeUtilize(self: DevMode):
+sampleModeCommon = DevMode(MODE_COMMON, beConst=True)
+sampleModeDebug = DevMode(MODE_DEBUG, beConst=True)
+
+def modeUtilize(self: DevMode):
     if self.isDebug():
         return sampleModeDebug
     else:
@@ -116,6 +137,21 @@ def countKw(keys, strs:list):
             cnt1 += k
             if mode.isDebug():
                 if cnt1 != 0 and k != 0:
-                    print(OINFOHEADER + f'[{cnt2}->{cnt2 + cnt1}][{j} + {k}] - {i}')
+                    print(OINFOHEADER + f'[{cnt2}->{cnt2 + cnt1}][{j} + {k}] - {i.strip(chr(10))}')
         cnt2 += cnt1
     return cnt2
+
+
+class str_2(str):
+    # @amusingCodes3rd.method_register(str)
+    def wordFind(self, str, startIndex=0):
+        a = self.find(str, startIndex)
+        while True:
+            if a == -1:
+                return -1
+            b = a + len(str)
+            if str[b].isalpha() is False:
+                return a
+            else:
+                a = b
+    # countKw() can use this function. but for performance consideration, i'm not using it.
