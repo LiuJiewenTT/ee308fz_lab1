@@ -1,5 +1,7 @@
 import global_vars
 
+OINFOHEADER = f'[{__name__}]: '
+
 # Constants
 MODE_COMMON = 0
 MODE_DEBUG = 1
@@ -64,7 +66,7 @@ class ExtClass():
     def extSelect(self, fileName:str=''):
         # debug code
         if self.mode.isDebug():
-            print(f'[{__name__}]: ' + f'str: {fileName}')
+            print(OINFOHEADER + f'str: {fileName}')
 
         t1 = fileName.rsplit(sep='.', maxsplit=3)
         self.ext = t1[-1]
@@ -72,11 +74,11 @@ class ExtClass():
         try:
             self.exti = extMap[self.ext]
         except KeyError as ke:
-            estr = f'[{__name__}]: ' + f'No matching ext.{self.ext}: {ke}'
+            estr = OINFOHEADER + f'No matching ext.{self.ext}: {ke}'
             raise KeyError(estr)
 
         if self.ext == '' or len(t1) == 1:
-            estr = f'[{__name__}]: ' + f'Error: ext={self.ext}. No ext or value error.'
+            estr = OINFOHEADER + f'Error: ext={self.ext}. No ext or value error.'
             self.ext = None
             self.exti = 0
             raise ValueError(estr)
@@ -84,4 +86,12 @@ class ExtClass():
 
 
 def countKw(keys, strs:list):
-    pass
+    cnt1 = 0
+    cnt2 = 0
+    for i in strs:
+        cnt1 = 0
+        for j in keys:
+            i: str
+            cnt1 += i.count(j)
+        cnt2 += cnt1
+    return cnt2

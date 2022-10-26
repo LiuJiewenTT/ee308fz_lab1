@@ -1,10 +1,12 @@
 // Infomation output header.
-    f'[{__name__}]: ' +
+    OINFOHEADER = f'[{__name__}]: '
+    // example
+    print(OINFOHEADER + f'fileName: {fileName}')
 
 // Use it for many times.
     import global_vars
 
-// global_vars.[var] in parameter list implement:
+// global_vars.[var] in parameter list implement: (example)
     def __init__(self, mode: DevMode=None):
         # This case should write like this, or the parameter will be None value.
         if mode is None:
@@ -12,3 +14,13 @@
         # print(global_vars.gmode)              # good
         # print(global_vars.gmode is None)      # False, good
         # print(mode)                           # None, when is written in parameter list.
+
+// access file in the directory of program: (example, osp is os.path)
+    open(osp.join(programDir, f'keywords_{fileExt.ext}.txt'))
+
+// open file
+    try:
+        f = open(fileName)
+    except FileNotFoundError as fe:
+        estr = OINFOHEADER + f'{fe}'
+        raise FileNotFoundError(estr)
