@@ -64,7 +64,7 @@ class ExtClass():
     def extSelect(self, fileName:str=''):
         # debug code
         if self.mode.isDebug():
-            print(f'str: {fileName}')
+            print(f'[{__name__}]: ' + f'str: {fileName}')
 
         t1 = fileName.rsplit(sep='.', maxsplit=3)
         self.ext = t1[-1]
@@ -72,11 +72,11 @@ class ExtClass():
         try:
             self.exti = extMap[self.ext]
         except KeyError as ke:
-            estr = f'No matching ext.{self.ext}: {ke}'
+            estr = f'[{__name__}]: ' + f'No matching ext.{self.ext}: {ke}'
             raise KeyError(estr)
 
         if self.ext == '' or len(t1) == 1:
-            estr = f'Error: ext={self.ext}. No ext or value error.'
+            estr = f'[{__name__}]: ' + f'Error: ext={self.ext}. No ext or value error.'
             self.ext = None
             self.exti = 0
             raise ValueError(estr)

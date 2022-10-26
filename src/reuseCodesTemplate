@@ -1,0 +1,14 @@
+// Infomation output header.
+    f'[{__name__}]: ' +
+
+// Use it for many times.
+    import global_vars
+
+// global_vars.[var] in parameter list implement:
+    def __init__(self, mode: DevMode=None):
+        # This case should write like this, or the parameter will be None value.
+        if mode is None:
+            mode = global_vars.gmode
+        # print(global_vars.gmode)              # good
+        # print(global_vars.gmode is None)      # False, good
+        # print(mode)                           # None, when is written in parameter list.

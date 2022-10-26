@@ -11,10 +11,10 @@ print(sys.argv)
 f = None
 flag = False
 fileName = sys.argv[1]
-print(fileName)
+print(f'[{__name__}]: ' + f'fileName: {fileName}')
 # Check ext
-fileExt:common.ExtClass = common.ExtClass()
-# fileExt.mode.setMode(common.MODE_COMMON)
+fileExt: common.ExtClass = common.ExtClass()
+# fileExt.mode.setMode(common.MODE_DEBUG)
 fileExt.extSelect(fileName)
 # open
 try:
@@ -24,12 +24,11 @@ except FileNotFoundError as fe:
     print(fe)
 # open successful
 
-print(f'fext={fileExt.ext, fileExt.exti}')
+print(f'[{__name__}]: ' + f'fext={fileExt.ext, fileExt.exti}')
 
 # read file data
 if flag is True:
     strs = f.readlines()
-
 
 # Close File
 if f is not None:
