@@ -52,12 +52,13 @@ class ExtClass():
     mode: DevMode = sampleModeCommon
 
     def __init__(self, mode: DevMode=None):
+        # This case should write like this, or the parameter will be None value.
         if mode is None:
             mode = global_vars.gmode
-        # This case should write like this, or the parameter will be None value.
-        # print(global_vars.gmode)
-        # print(global_vars.gmode is None)
-        # print(mode)
+        # print(global_vars.gmode)              # good
+        # print(global_vars.gmode is None)      # False, good
+        # print(mode)                           # None, when is written in parameter list.
+
         self.mode = mode.utilize()
 
     def extSelect(self, fileName:str=''):
