@@ -1,0 +1,1 @@
+python -m timeit -n 10 -r 3 -s "import my_unit_test"
