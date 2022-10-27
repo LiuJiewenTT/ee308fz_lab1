@@ -34,6 +34,8 @@ def entrance(pkeys, pstrs, pmoreinfo=None):
     #     print(common.str_2.wordFind.__name__)
     locations = extractWordsBraces(strs, wordLocation)
     locations_SwCsBraces = extractSwCsBraces(locations)
+    if mode.isDebug():
+        print(OINFOHEADER + f'locations_SwCsBraces: {locations_SwCsBraces}')
     SwCnt_Group = countSwCs(locations_SwCsBraces)
 
     # output SwCs
@@ -49,13 +51,18 @@ def entrance(pkeys, pstrs, pmoreinfo=None):
 # intend to use iteration function to proceed each group of SwCs
 def countSwCs(ploctions_SwCsBraces):
     global mode
+
+    if mode.isDebug():
+        print(OINFOHEADER + f'plocations_SwCsBraces: {ploctions_SwCsBraces}')
+
     SwCnt_Group = []
+    intervals = []
     length = ploctions_SwCsBraces.__len__()
     flag = False
     i = 0
     while i < length:
         if ploctions_SwCsBraces[i][2]=='switch':
-            flag = True
+            # flag = True
             endBrace = i+2
             bcnt = 0
             j = i+1
@@ -76,18 +83,37 @@ def countSwCs(ploctions_SwCsBraces):
             else:
                 estr = OINFOHEADER + f'file content has a problem: braces not match.'
                 raise RuntimeError(estr)
-
+            interval = [i, endBrace+1]
+            intervals.append(interval)
             CsCntItr = countSwCs(ploctions_SwCsBraces[i+1:endBrace+1])
             SwCnt_Group.extend(CsCntItr)
+            # print(SwCnt_Group)
             i = endBrace
         i += 1
 
+    if mode.isDebug():
+        print(OINFOHEADER + f'intervals: {intervals}')
+
     if flag is False:
         CsCnt = 0
-        for i in range(0, length):
+        i = 0
+        while i < length:
+            flag2 = False
+            # print(CsCnt)
+            for j in intervals:
+                x, y = j
+                # print(x, y, j)
+                if i in range(x, y):
+                    i = y
+                    flag2 = True
+            if flag2 == True:
+                continue
             if ploctions_SwCsBraces[i][2]=='case':
                 CsCnt += 1
-        return [CsCnt,]
+            i += 1
+        if CsCnt!=0:
+            SwCnt_Group.append(CsCnt)
+        return SwCnt_Group
     else:
         return SwCnt_Group
 
