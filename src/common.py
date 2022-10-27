@@ -117,6 +117,8 @@ def countKw(keys, strs:list):
 
     cnt1 = 0
     cnt2 = 0
+    idi = 0
+    locations = []
     keylength = {}
     for i in keys:
         keylength[i] = len(i)
@@ -134,12 +136,16 @@ def countKw(keys, strs:list):
                 a += keylength[j]
                 if i[a].isalpha() is False:
                     k += 1
+                    # pairs of location prepared for more operation
+                    p = [idi, a - keylength[j], j]
+                    locations.append(p)
             cnt1 += k
             if mode.isDebug():
                 if cnt1 != 0 and k != 0:
                     print(OINFOHEADER + f'[{cnt2}->{cnt2 + cnt1}][{j} + {k}] - {i.strip(chr(10))}')
         cnt2 += cnt1
-    return cnt2
+        idi += 1
+    return cnt2, locations
 
 
 class str_2(str):

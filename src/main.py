@@ -74,8 +74,12 @@ if __name__ == '__main__':
     strs = f.readlines()
 
     # work of 1st level
-    keycnt = common.countKw(keys, strs)
+    keycnt, moreinfo = common.countKw(keys, strs)
     print('total num: ', keycnt)
+
+    # # may have a change when moreinfo is truly implied.
+    # wordLocations = moreinfo
+    specific_c.entrance(keys, strs, moreinfo)
 
     # specific_c.temp()
 
