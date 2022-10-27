@@ -58,6 +58,7 @@ Solution steps:
 ``` mermaid
 graph TD
 File_Validation --> Read_Keywords --> Read_File_Content
+Read_File_Content --beginning_of_running_any_solution--> sol.1
 Read_File_Content -.-> 1st_Level
 Read_File_Content -.-> 2nd_Level
 Read_File_Content -.-> 3rd_Level
@@ -68,22 +69,24 @@ Read_File_Content -.-> 4th_Level
 4th_Level --> sol.3
 sol.1 --> Count_Keywords
 Count_Keywords -- generate info--> sol.1
-Count_Keywords --> Output_Answer_of_1st_Level
+Count_Keywords --> Give_Answer_of_1st_Level
 sol.1 --give info--> sol.2
 sol.1 --give info--> sol.3
 sol.2 --> Iterate_and_Calculate_for_sol.2
 sol.3 --> Iterate_and_Calculate_for_sol.3
-Iterate_and_Calculate_for_sol.2 -.-> Output_Answers_of_2nd_Level
-Iterate_and_Calculate_for_sol.3 -.-> Output_Answer_of_3rd&4th_Level
+Iterate_and_Calculate_for_sol.2 -.-> Give_Answers_of_2nd_Level
+Iterate_and_Calculate_for_sol.3 -.-> Give_Answers_of_3rd&4th_Level
 Iterate_and_Calculate_for_sol.2 --> Function2
 Function2 --find 'switch', iterate--> Function2
 Function2 --> Count_'case'
-Count_'case' --> Output_Answers_of_2nd_Level
+Count_'case' --> Give_Answers_of_2nd_Level
 Iterate_and_Calculate_for_sol.3 --> Function3
 Function3 --find 'if/else', iterate--> Function3
 Function3 --> Count_'else_if/else'
-Count_'else_if/else' --> Output_Answer_of_3rd&4th_Level
-Read_File_Content --beginning_of_running_any_solution--> sol.1
+Count_'else_if/else' --> Give_Answers_of_3rd&4th_Level
+Give_Answer_of_1st_Level --collect--> Completed_Answer
+Give_Answers_of_2nd_Level --collect--> Completed_Answer
+Give_Answers_of_3rd&4th_Level --collect--> Completed_Answer
 ```
 
 ## Code Description
@@ -351,15 +354,15 @@ Test file, $testfile.c$, is copied from website. See the website at the [End](#E
 
 Picture shown below tells that of 4th level, i.e. the ultimate requirement. It goes to expectation.
 
-![Snipaste_2022-10-28_04-29-19](pics/Snipaste_2022-10-28_04-29-19.png)
+![Snipaste_2022-10-28_04-29-19](./pics/Snipaste_2022-10-28_04-29-19.png)
 
-![Snipaste_2022-10-28_06-10-41](pics/Snipaste_2022-10-28_06-10-41.png)
+![Snipaste_2022-10-28_06-10-41](./pics/Snipaste_2022-10-28_06-10-41.png)
 
 ### Performance Testing
 
 [Top](#Contents)
 
-![Snipaste_2022-10-28_06-53-52](pics/Snipaste_2022-10-28_06-53-52.png)
+![Snipaste_2022-10-28_06-53-52](./pics/Snipaste_2022-10-28_06-53-52.png)
 
 ### 
 
@@ -379,3 +382,9 @@ In this program, I used lots of new knowledge. Software Engineering is truly a s
 | The Aim of This Assignment                 | Note the development processes.              |
 | MU STU ID and FZU STU ID                   | 20123850_832001217                           |
 
+Project on Github.com: https://github.com/LiuJiewenTT/ee308fz_lab1
+
+URL on github.com of this passage(download): https://liujiewentt.github.io/ee308fz_lab1/development%20blog.md<br/>
+URL on github.com of this passage(view with Github md): https://github.com/LiuJiewenTT/ee308fz_lab1/tree/main/development%20blog.md
+
+URL on github.com of this passage(view as html): https://liujiewentt.github.io/ee308fz_lab1/development%20blog.html<br/>
