@@ -59,10 +59,11 @@ def countSwCs(ploctions_SwCsBraces):
     intervals = []
     length = ploctions_SwCsBraces.__len__()
     flag = False
+    CsCnt = 0
+
     i = 0
     while i < length:
         if ploctions_SwCsBraces[i][2]=='switch':
-            # flag = True
             endBrace = i+2
             bcnt = 0
             j = i+1
@@ -94,28 +95,24 @@ def countSwCs(ploctions_SwCsBraces):
     if mode.isDebug():
         print(OINFOHEADER + f'intervals: {intervals}')
 
-    if flag is False:
-        CsCnt = 0
-        i = 0
-        while i < length:
-            flag2 = False
-            # print(CsCnt)
-            for j in intervals:
-                x, y = j
-                # print(x, y, j)
-                if i in range(x, y):
-                    i = y
-                    flag2 = True
-            if flag2 == True:
-                continue
-            if ploctions_SwCsBraces[i][2]=='case':
-                CsCnt += 1
-            i += 1
-        if CsCnt!=0:
-            SwCnt_Group.append(CsCnt)
-        return SwCnt_Group
-    else:
-        return SwCnt_Group
+    i = 0
+    while i < length:
+        flag = False
+        # print(CsCnt)
+        for j in intervals:
+            x, y = j
+            # print(x, y, j)
+            if i in range(x, y):
+                i = y
+                flag = True
+        if flag == True:
+            continue
+        if ploctions_SwCsBraces[i][2]=='case':
+            CsCnt += 1
+        i += 1
+    if CsCnt!=0:
+        SwCnt_Group.append(CsCnt)
+    return SwCnt_Group
 
 
 # intend to use binary tree structure
