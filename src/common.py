@@ -1,5 +1,5 @@
 import global_vars
-import amusingCodes3rd
+# import amusingCodes3rd
 
 OINFOHEADER = f'[{__name__}]: '
 
