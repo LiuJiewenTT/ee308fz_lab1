@@ -1,3 +1,3 @@
 @echo cd dir:
 @echo %cd%
-call ..\src\main.py testfile.c
+call ..\src\mainM.py testfile.c

@@ -42,11 +42,17 @@ def entrance(pkeys, pstrs, pmoreinfo=None):
     SwCnt_Group = countSwCs(locations_SwCsBraces)
 
     # output SwCs
-    print(f'switch num: ', SwCnt_Group.__len__())
-    print('case num: ', end='')
+    prStr = 'switch num: {}'.format(SwCnt_Group.__len__())
+    global_vars.answerCollection.append(prStr)
+    prStr = 'case num:'
     for i in SwCnt_Group:
-        print(i, end=' ')
-    print('')
+        prStr += ' {}'.format(i)
+    global_vars.answerCollection.append(prStr)
+    # print(f'switch num: ', SwCnt_Group.__len__())
+    # print('case num: ', end='')
+    # for i in SwCnt_Group:
+    #     print(i, end=' ')
+    # print('')
     
     # process if-else, if-elseif-else
     # these codes are only designed for cases with entire braces attached to keywords.
@@ -57,8 +63,14 @@ def entrance(pkeys, pstrs, pmoreinfo=None):
     cntIFES = [cnt_IfEs, cnt_IfEsifEs]
 
     # output IFES
-    print(f'if-else num: ', cnt_IfEs)
-    print(f'if-elseif-else num: ', cnt_IfEsifEs)
+    prStr = 'if-else num: {}'.format(cnt_IfEs)
+    global_vars.answerCollection.append(prStr)
+    prStr = 'if-elseif-else num: {}'.format(cnt_IfEsifEs)
+    global_vars.answerCollection.append(prStr)
+    # print(f'if-else num: ', cnt_IfEs)
+    # print(f'if-elseif-else num: ', cnt_IfEsifEs)
+
+
 
 
 

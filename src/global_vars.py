@@ -1,5 +1,5 @@
 # The special thing is, this file is prepared for loop-referencing varibles.
-# That defined once, avoiding importing main.py and resetting values on every import, totally clean environment to defined in.
+# That defined once, avoiding importing mainM.py and resetting values on every import, totally clean environment to defined in.
 # Constants are not necessarliy to be here, cause values are always the same.
 # Or varibles of same name that sharing memory as well. like mode for different files.
 # Classification:
@@ -20,3 +20,10 @@ except:
 #     vmode = vmode
 # except:
 #     vmode = {}
+
+# Type 2
+global answerCollection
+try:
+    answerCollection = answerCollection
+except:
+    answerCollection = []
