@@ -212,16 +212,17 @@ def printLocContent(plocations: list, text='[NoText]', contextHeader=OINFOHEADER
     print('] || ', end='')
     print(f'{text}: {plocations}')
 
-class str_2(str):
-    # @amusingCodes3rd.method_register(str)
-    def wordFind(self, str, startIndex=0):
-        a = self.find(str, startIndex)
-        while True:
-            if a == -1:
-                return -1
-            b = a + len(str)
-            if str[b].isalpha() is False:
-                return a
-            else:
-                a = b
+# No usage
+# class str_2(str):
+#     # @amusingCodes3rd.method_register(str)
+#     def wordFind(self, str, startIndex=0):
+#         a = self.find(str, startIndex)
+#         while True:
+#             if a == -1:
+#                 return -1
+#             b = a + len(str)
+#             if str[b].isalpha() is False:
+#                 return a
+#             else:
+#                 a = b
     # countKw() can use this function. but for performance consideration, i'm not using it.
