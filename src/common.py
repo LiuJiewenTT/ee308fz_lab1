@@ -147,6 +147,54 @@ def countKw(keys, strs:list):
         idi += 1
     return cnt2, locations
 
+def cmp_moreinfo_Loc(a: list, b: list):
+    # print(a, b)
+    if a[0]>b[0]:
+        return True
+    elif a[0]<b[0]:
+        return False
+    else:
+        return a[1]>b[1]
+
+def insert_sort(a: list, b: list, func=(lambda x,y:x>y), mode=sampleModeCommon):
+    if mode.isDebug():
+        print(OINFOHEADER + f'a: {a}')
+        print(OINFOHEADER + f'b: {b}')
+
+    i = 0
+    j = 0
+    i_len = len(a)
+    j_len = len(b)
+    k = 0
+    k_len = i_len + j_len
+    dst = []
+    flag = 'null'
+    while k<k_len:
+        val = func(a[i], b[j])
+        if val is False:
+            dst.append(a[i])
+            if i<i_len-1:
+                i += 1
+            else:
+                flag = 'i'
+                break
+        else:
+            dst.append(b[j])
+            if j<j_len-1:
+                j += 1
+            else:
+                flag = 'j'
+                break
+        k += 1
+        # if mode.isDebug():
+        #     print(OINFOHEADER + f'[{k-1}]: {val}, dst[k]: {dst[k-1]}')
+    if flag=='i':
+        dst.extend(b[j:])
+    elif flag=='j':
+        dst.extend(a[i:])
+    if mode.isDebug():
+        print(OINFOHEADER + f'dst: {dst}')
+    return dst
 
 class str_2(str):
     # @amusingCodes3rd.method_register(str)
