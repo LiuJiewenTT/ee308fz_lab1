@@ -6,7 +6,7 @@
 // Use it for many times.
     import global_vars
 
-// global_vars.[var] in parameter list implement: (example)
+// global_vars.[var] in parameter list implementation: (example)
 // ps. OR make file-scale global mode varible to use(not recommended)
     def __init__(self, mode: DevMode=None):
         # This case should write like this, or the parameter will be None value.

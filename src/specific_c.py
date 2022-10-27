@@ -22,13 +22,14 @@ moreinfo: list = None
 wordLocation: list = None
 locations: list = None
 SwCnt_Group = []
+cntIFES = []
 
 def entrance(pkeys, pstrs, pmoreinfo=None):
-    global keys, strs, moreinfo, wordLocation, locations, SwCnt_Group, mode
+    global keys, strs, moreinfo, wordLocation, locations, SwCnt_Group, cntIFES, mode
     keys = pkeys
     strs = pstrs
     moreinfo = pmoreinfo
-    # may change when moreinfo is truly implied.
+    # may change when moreinfo is truly implemented.
     wordLocation = moreinfo
     # if mode.isDebug():
     #     print(common.str_2.wordFind.__name__)
@@ -53,6 +54,7 @@ def entrance(pkeys, pstrs, pmoreinfo=None):
     if mode.isDebug():
         print(OINFOHEADER + f'locations_IfEsBraces: {locations_IfEsBraces}')
     cnt_IfEs, cnt_IfEsifEs = countIfEs(locations_IfEsBraces)
+    cntIFES = [cnt_IfEs, cnt_IfEsifEs]
 
     # output IFES
     print(f'if-else num: ', cnt_IfEs)
@@ -128,6 +130,7 @@ def countSwCs(plocations_SwCsBraces):
 
 
 # intend to use binary tree structure
+# Actual solution is to use iteration like that for 2nd level(SwCs)
 def countIfEs(plocations_IfEsBraces):
     global mode
 

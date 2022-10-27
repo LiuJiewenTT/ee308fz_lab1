@@ -19,6 +19,7 @@ mode = global_vars.gmode.utilize()
 # print(OINFOHEADER, vmode)
 
 import specific_c
+import specific_cpp
 
 # vmode[__name__] = '3'
 
@@ -77,9 +78,14 @@ if __name__ == '__main__':
     keycnt, moreinfo = common.countKw(keys, strs)
     print('total num: ', keycnt)
 
-    # # may have a change when moreinfo is truly implied.
+    speMDic = {
+        'c': specific_c,
+        'cpp': specific_cpp
+    }
+
+    # # may have a change when moreinfo is truly implemented.
     # wordLocations = moreinfo
-    specific_c.entrance(keys, strs, moreinfo)
+    speMDic[fileExt.ext].entrance(keys, strs, moreinfo)
 
     # specific_c.temp()
 
