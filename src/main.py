@@ -78,14 +78,18 @@ if __name__ == '__main__':
     keycnt, moreinfo = common.countKw(keys, strs)
     print('total num: ', keycnt)
 
-    speMDic = {
-        'c': specific_c,
-        'cpp': specific_cpp
-    }
 
+    speMStr = f'specific_{fileExt.ext}'
+    # speMDic = {
+    #     'c': specific_c,
+    #     'cpp': specific_cpp
+    # }
+
+    speMEStr = speMStr + '.entrance(keys, strs, moreinfo)'
     # # may have a change when moreinfo is truly implemented.
     # wordLocations = moreinfo
-    speMDic[fileExt.ext].entrance(keys, strs, moreinfo)
+    # speMDic[fileExt.ext].entrance(keys, strs, moreinfo)
+    exec(speMEStr)
 
     # specific_c.temp()
 
