@@ -3,7 +3,7 @@ import common
 
 OINFOHEADER = f'[{__name__}]: '
 mode: common.DevMode = global_vars.gmode.utilize()
-mode = mode.setMode(common.MODE_DEBUG)
+# mode = mode.setMode(common.MODE_DEBUG)
 # print(OINFOHEADER + f'mode: {mode}')
 # print(OINFOHEADER + f'global_vars.gmode: {global_vars.gmode}')
 # print(OINFOHEADER + f'global_vars.gmode.mode: {global_vars.gmode.mode}')
@@ -21,9 +21,10 @@ strs: list = None
 moreinfo: list = None
 wordLocation: list = None
 locations: list = None
+SwCnt_Group = []
 
 def entrance(pkeys, pstrs, pmoreinfo=None):
-    global keys, strs, moreinfo, wordLocation, mode
+    global keys, strs, moreinfo, wordLocation, locations, SwCnt_Group, mode
     keys = pkeys
     strs = pstrs
     moreinfo = pmoreinfo
@@ -31,14 +32,64 @@ def entrance(pkeys, pstrs, pmoreinfo=None):
     wordLocation = moreinfo
     # if mode.isDebug():
     #     print(common.str_2.wordFind.__name__)
-    extractWords(pkeys=keys, pstrs=strs, pwordLocation=wordLocation)
+    locations = extractWordsBraces(strs, wordLocation)
+    locations_SwCsBraces = extractSwCsBraces(locations)
+    SwCnt_Group = countSwCs(locations_SwCsBraces)
 
-    pass
+    # output SwCs
+    print(f'switch num: ', SwCnt_Group.__len__())
+    print('case num: ', end='')
+    for i in SwCnt_Group:
+        print(i, end=' ')
+    print('')
+
+
 
 
 # intend to use iteration function to proceed each group of SwCs
-def countSwCs():
-    pass
+def countSwCs(ploctions_SwCsBraces):
+    global mode
+    SwCnt_Group = []
+    length = ploctions_SwCsBraces.__len__()
+    flag = False
+    i = 0
+    while i < length:
+        if ploctions_SwCsBraces[i][2]=='switch':
+            flag = True
+            endBrace = i+2
+            bcnt = 0
+            j = i+1
+            while j<length:
+                try:
+                    if ploctions_SwCsBraces[j][2] == '{':
+                        bcnt += 1
+                    elif ploctions_SwCsBraces[j][2] == '}':
+                        bcnt -= 1
+                    if bcnt==0:
+                        break
+                    j += 1
+                except IndexError as ie:
+                    estr = OINFOHEADER + f'j/length: {j, length}'
+                    raise IndexError(estr)
+            if bcnt==0:
+                endBrace = j
+            else:
+                estr = OINFOHEADER + f'file content has a problem: braces not match.'
+                raise RuntimeError(estr)
+
+            CsCntItr = countSwCs(ploctions_SwCsBraces[i+1:endBrace+1])
+            SwCnt_Group.extend(CsCntItr)
+            i = endBrace
+        i += 1
+
+    if flag is False:
+        CsCnt = 0
+        for i in range(0, length):
+            if ploctions_SwCsBraces[i][2]=='case':
+                CsCnt += 1
+        return [CsCnt,]
+    else:
+        return SwCnt_Group
 
 
 # intend to use binary tree structure
@@ -46,7 +97,7 @@ def countIfEs():
     pass
 
 # not only keywords, but also the bracket(Braces{})
-def extractWords(pkeys=keys, pstrs=strs, pwordLocation=wordLocation):
+def extractWordsBraces(pstrs, pwordLocation):
     global mode
     if mode.isDebug():
         print(OINFOHEADER + f'pwordLocation: {pwordLocation}')
@@ -83,9 +134,16 @@ def extractWords(pkeys=keys, pstrs=strs, pwordLocation=wordLocation):
         print(OINFOHEADER + f'braceLocations: {braceLocations}')
         print(OINFOHEADER + f'pwordLocations: {pwordLocation}')
         print(OINFOHEADER + f'pLocations: {pLocation}')
-    pass
+    return pLocation
 
-
+def extractSwCsBraces(pLocation):
+    ret = []
+    for i in pLocation:
+        for j in ['switch', 'case', '{', '}']:
+            if i[2]==j:
+                ret.append(i)
+                break
+    return ret
 
 # def temp():
 #     print(OINFOHEADER, vmode)
