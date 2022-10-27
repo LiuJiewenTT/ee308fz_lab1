@@ -196,6 +196,22 @@ def insert_sort(a: list, b: list, func=(lambda x,y:x>y), mode=sampleModeCommon):
         print(OINFOHEADER + f'dst: {dst}')
     return dst
 
+def extractSpecificLocations(pLocation, keywords):
+    ret = []
+    for i in pLocation:
+        for j in keywords:
+            if i[2] == j:
+                ret.append(i)
+                break
+    return ret
+
+def printLocContent(plocations: list, text='[NoText]', contextHeader=OINFOHEADER):
+    print(contextHeader + '[', end='')
+    for i in plocations:
+        print(i[2], end='')
+    print('] || ', end='')
+    print(f'{text}: {plocations}')
+
 class str_2(str):
     # @amusingCodes3rd.method_register(str)
     def wordFind(self, str, startIndex=0):

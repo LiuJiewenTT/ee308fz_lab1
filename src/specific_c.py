@@ -33,6 +33,8 @@ def entrance(pkeys, pstrs, pmoreinfo=None):
     # if mode.isDebug():
     #     print(common.str_2.wordFind.__name__)
     locations = extractWordsBraces(strs, wordLocation)
+    
+    # process switch-case
     locations_SwCsBraces = extractSwCsBraces(locations)
     if mode.isDebug():
         print(OINFOHEADER + f'locations_SwCsBraces: {locations_SwCsBraces}')
@@ -44,34 +46,44 @@ def entrance(pkeys, pstrs, pmoreinfo=None):
     for i in SwCnt_Group:
         print(i, end=' ')
     print('')
+    
+    # process if-else, if-elseif-else
+    # these codes are only designed for cases with entire braces attached to keywords.
+    locations_IfEsBraces = extractIfEsBraces(locations)
+    if mode.isDebug():
+        print(OINFOHEADER + f'locations_IfEsBraces: {locations_IfEsBraces}')
+    cnt_IfEs, cnt_IfEsifEs = countIfEs(locations_IfEsBraces)
 
+    # output IFES
+    print(f'if-else num: ', cnt_IfEs)
+    print(f'if-elseif-else num: ', cnt_IfEsifEs)
 
 
 
 # intend to use iteration function to proceed each group of SwCs
-def countSwCs(ploctions_SwCsBraces):
+def countSwCs(plocations_SwCsBraces):
     global mode
 
     if mode.isDebug():
-        print(OINFOHEADER + f'plocations_SwCsBraces: {ploctions_SwCsBraces}')
+        print(OINFOHEADER + f'plocations_SwCsBraces: {plocations_SwCsBraces}')
 
     SwCnt_Group = []
     intervals = []
-    length = ploctions_SwCsBraces.__len__()
+    length = plocations_SwCsBraces.__len__()
     flag = False
     CsCnt = 0
 
     i = 0
     while i < length:
-        if ploctions_SwCsBraces[i][2]=='switch':
+        if plocations_SwCsBraces[i][2]=='switch':
             endBrace = i+2
             bcnt = 0
             j = i+1
             while j<length:
                 try:
-                    if ploctions_SwCsBraces[j][2] == '{':
+                    if plocations_SwCsBraces[j][2] == '{':
                         bcnt += 1
-                    elif ploctions_SwCsBraces[j][2] == '}':
+                    elif plocations_SwCsBraces[j][2] == '}':
                         bcnt -= 1
                     if bcnt==0:
                         break
@@ -86,7 +98,7 @@ def countSwCs(ploctions_SwCsBraces):
                 raise RuntimeError(estr)
             interval = [i, endBrace+1]
             intervals.append(interval)
-            CsCntItr = countSwCs(ploctions_SwCsBraces[i+1:endBrace+1])
+            CsCntItr = countSwCs(plocations_SwCsBraces[i+1:endBrace+1])
             SwCnt_Group.extend(CsCntItr)
             # print(SwCnt_Group)
             i = endBrace
@@ -107,7 +119,7 @@ def countSwCs(ploctions_SwCsBraces):
                 flag = True
         if flag == True:
             continue
-        if ploctions_SwCsBraces[i][2]=='case':
+        if plocations_SwCsBraces[i][2]=='case':
             CsCnt += 1
         i += 1
     if CsCnt!=0:
@@ -116,8 +128,86 @@ def countSwCs(ploctions_SwCsBraces):
 
 
 # intend to use binary tree structure
-def countIfEs():
-    pass
+def countIfEs(plocations_IfEsBraces):
+    global mode
+
+    cnt_IfEs = 0
+    cnt_IfEsifEs = 0
+    cntIFES = [cnt_IfEs, cnt_IfEsifEs]
+    length = plocations_IfEsBraces.__len__()
+    intervals = []
+    i = 0
+    while i < length:
+        if plocations_IfEsBraces[i][2] == 'if' or \
+                (plocations_IfEsBraces[i][2] == 'else' and plocations_IfEsBraces[i+1 if i+1 <length else i][2] != 'if'):
+            endBrace = i + 2
+            bcnt = 0
+            j = i + 1
+            while j < length:
+                try:
+                    if plocations_IfEsBraces[j][2] == '{':
+                        bcnt += 1
+                    elif plocations_IfEsBraces[j][2] == '}':
+                        bcnt -= 1
+                    if bcnt == 0:
+                        break
+                    j += 1
+                except IndexError as ie:
+                    estr = OINFOHEADER + f'j/length: {j, length}'
+                    raise IndexError(estr)
+            if bcnt == 0:
+                endBrace = j
+            else:
+                estr = OINFOHEADER + f'file content has a problem: braces not match.'
+                raise RuntimeError(estr)
+            interval = [i + 2, endBrace]
+            intervals.append(interval)
+            retv = countIfEs(plocations_IfEsBraces[i + 1:endBrace + 1])
+            if mode.isDebug():
+                if retv!=[0, 0]:
+                    print(OINFOHEADER + f'retv: {retv}')
+            cnt_IfEs += retv[0]
+            cnt_IfEsifEs += retv[1]
+            i = endBrace
+        i += 1
+
+    # if mode.isDebug():
+    #     print(OINFOHEADER + f'intervals: {intervals}')
+
+    tpifesloclist = []
+    i = 0
+    while i < length:
+        flag = False
+        # print(CsCnt)
+        for j in intervals:
+            x, y = j
+            # print(x, y, j)
+            if i in range(x, y):
+                i = y
+                flag = True
+        if flag == True:
+            continue
+        tpifesloclist.append(plocations_IfEsBraces[i])
+        i += 1
+
+    if mode.isDebug():
+        common.printLocContent(tpifesloclist, text='tpifesloclist', contextHeader=OINFOHEADER)
+
+    i = 0
+    tlength = tpifesloclist.__len__()
+    while i < tlength:
+        if tpifesloclist[i][2] == 'else':
+            if tpifesloclist[i+1 if i+1<tlength else i][2] == 'if':
+                cnt_IfEsifEs += 1
+                while i < tlength:
+                    if tpifesloclist[i][2] == 'else' and tpifesloclist[i+1 if i+1<tlength else i][2] != 'if':
+                        break
+                    i += 1
+            elif tpifesloclist[i+1 if i+1<tlength else i][2] == '{':
+                cnt_IfEs += 1
+        i += 1
+    cntIFES = [cnt_IfEs, cnt_IfEsifEs]
+    return cntIFES
 
 # not only keywords, but also the bracket(Braces{})
 def extractWordsBraces(pstrs, pwordLocation):
@@ -160,12 +250,11 @@ def extractWordsBraces(pstrs, pwordLocation):
     return pLocation
 
 def extractSwCsBraces(pLocation):
-    ret = []
-    for i in pLocation:
-        for j in ['switch', 'case', '{', '}']:
-            if i[2]==j:
-                ret.append(i)
-                break
+    ret = common.extractSpecificLocations(pLocation, ['switch', 'case', '{', '}'])
+    return ret
+
+def extractIfEsBraces(pLocation):
+    ret = common.extractSpecificLocations(pLocation, ['if', 'else', '{', '}'])
     return ret
 
 # def temp():
