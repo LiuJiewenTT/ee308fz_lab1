@@ -1,4 +1,4 @@
 development blog.assets
 *.pyc
-*.coverage
+.coverage
 
