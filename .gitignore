@@ -1,2 +1,2 @@
 development blog.assets
-.pyc
+*.pyc
