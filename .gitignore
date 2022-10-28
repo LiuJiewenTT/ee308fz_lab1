@@ -2,3 +2,4 @@ development blog.assets
 *.pyc
 .coverage
 
+src/.coverage
