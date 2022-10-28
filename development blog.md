@@ -1,5 +1,7 @@
 # Development Blog
 
+To see the whole version, go to the End and see HTML version on Github.com.
+
 ## Contents
 
 [toc]
@@ -358,13 +360,21 @@ Picture shown below tells that of 4th level, i.e. the ultimate requirement. It g
 
 ![Snipaste_2022-10-28_06-10-41](./pics/Snipaste_2022-10-28_06-10-41.png)
 
+### Coverage Optimization
+
+[Top](#Contents)
+
+Comment useless codes.
+
+![Snipaste_2022-10-28_08-14-04.png](./pics/Snipaste_2022-10-28_08-14-04.png)
+
+$81$% ->$82$%
+
 ### Performance Testing
 
 [Top](#Contents)
 
 ![Snipaste_2022-10-28_06-53-52](./pics/Snipaste_2022-10-28_06-53-52.png)
-
-### 
 
 ## Summary
 
@@ -388,3 +398,4 @@ URL on github.com of this passage(download): https://liujiewentt.github.io/ee308
 URL on github.com of this passage(view with Github md): https://github.com/LiuJiewenTT/ee308fz_lab1/tree/main/development%20blog.md
 
 URL on github.com of this passage(view as html): https://liujiewentt.github.io/ee308fz_lab1/development%20blog.html<br/>
+URL on csdn.net of this passage(view as html): https://bbs.csdn.net/topics/608838406

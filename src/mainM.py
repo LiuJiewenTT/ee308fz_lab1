@@ -30,8 +30,8 @@ import specific_cpp
 
 
 def mainfunc(file=None):
-    # global mode
-    mode = common.DevMode(common.MODE_DEBUG)
+    global mode
+    # mode = common.DevMode(common.MODE_DEBUG)
 
     if mode.isDebug():
         print(sys.argv)
@@ -55,7 +55,6 @@ def mainfunc(file=None):
     dirsep = '\\' if sys.platform=='win32' else '/'
     fileName = osp.abspath(fileName)
     # fileName = osp.join(programDir, fileName)
-    # print(fileName)
 
     if mode.isDebug():
         print(OINFOHEADER + f'fileName: {fileName}')
