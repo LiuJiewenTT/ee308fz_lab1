@@ -2,7 +2,7 @@ import global_vars
 import common
 
 OINFOHEADER = f'[{__name__}]: '
-mode: common.DevMode = global_vars.gmode.utilize()
+gmode: common.DevMode = global_vars.gmode.utilize()
 # mode = mode.setMode(common.MODE_DEBUG)
 # print(OINFOHEADER + f'mode: {mode}')
 # print(OINFOHEADER + f'global_vars.gmode: {global_vars.gmode}')
@@ -25,7 +25,8 @@ SwCnt_Group = []
 cntIFES = []
 
 def entrance(pkeys, pstrs, pmoreinfo=None):
-    global keys, strs, moreinfo, wordLocation, locations, SwCnt_Group, cntIFES, mode
+    global keys, strs, moreinfo, wordLocation, locations, SwCnt_Group, cntIFES, gmode
+    mode = gmode
     keys = pkeys
     strs = pstrs
     moreinfo = pmoreinfo
@@ -76,7 +77,8 @@ def entrance(pkeys, pstrs, pmoreinfo=None):
 
 # intend to use iteration function to proceed each group of SwCs
 def countSwCs(plocations_SwCsBraces):
-    global mode
+    global gmode
+    mode = gmode
 
     if mode.isDebug():
         print(OINFOHEADER + f'plocations_SwCsBraces: {plocations_SwCsBraces}')
@@ -144,7 +146,8 @@ def countSwCs(plocations_SwCsBraces):
 # intend to use binary tree structure
 # Actual solution is to use iteration like that for 2nd level(SwCs)
 def countIfEs(plocations_IfEsBraces):
-    global mode
+    global gmode
+    mode = gmode
 
     cnt_IfEs = 0
     cnt_IfEsifEs = 0
@@ -226,7 +229,9 @@ def countIfEs(plocations_IfEsBraces):
 
 # not only keywords, but also the bracket(Braces{})
 def extractWordsBraces(pstrs, pwordLocation):
-    global mode
+    global gmode
+    mode = gmode
+
     if mode.isDebug():
         print(OINFOHEADER + f'pwordLocation: {pwordLocation}')
     braceLocations = []

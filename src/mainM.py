@@ -8,8 +8,10 @@ import common
 # heartrate.trace(browser=True)
 
 OINFOHEADER = f'[{__name__}]: '
-global_vars.gmode = common.DevMode(common.MODE_GDEBUG)
-mode = global_vars.gmode.utilize()
+# global_vars.gmode = common.DevMode(common.MODE_GDEBUG)
+global_vars.gmode = common.DevMode(common.MODE_COMMON)
+# global_vars.gmode = common.DevMode(common.MODE_DEBUG)
+gmode = global_vars.gmode.utilize()
 # print(mode)
 # print(global_vars.gmode)
 # print(OINFOHEADER + f'mode: {mode}')
@@ -30,8 +32,9 @@ import specific_cpp
 
 
 def mainfunc(file=None):
-    global mode
-    # mode = common.DevMode(common.MODE_DEBUG)
+    global gmode
+    mode = gmode
+    # mode = gmode.setMode(common.MODE_DEBUG)
 
     if mode.isDebug():
         print(sys.argv)

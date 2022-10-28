@@ -17,19 +17,22 @@ class DevMode:
         self.ifConst = beConst
 
     def setMode(self, ModeValue):
-        if self.ifConst is False:
-            # This writing is the same with putting self.mode=ModeValue here, but I'm letting you avoiding that thought.
-            ret = self
-            ret.mode = ModeValue
-        else:
-            if self.isDebug():
-                wstr = OINFOHEADER + f'Warning! You''re trying to change value of constant!'
-                print(wstr)
+        if global_vars.gmode.mode != MODE_COMMON:
+            if self.ifConst is False:
+                # This writing is the same with putting self.mode=ModeValue here, but I'm letting you avoiding that thought.
+                ret = self
+                ret.mode = ModeValue
             else:
-                # print(self, self.ifConst)
-                pass
-            ret = self.dupeInstance()
-            ret.mode = ModeValue
+                if self.isDebug():
+                    wstr = OINFOHEADER + f'Warning! You''re trying to change value of constant!'
+                    print(wstr)
+                else:
+                    # print(self, self.ifConst)
+                    pass
+                ret = self.dupeInstance()
+                ret.mode = ModeValue
+        else:
+            ret = self
         return ret
 
     def isDebug(self):
