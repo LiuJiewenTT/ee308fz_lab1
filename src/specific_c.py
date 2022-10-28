@@ -31,7 +31,10 @@ def entrance(pkeys, pstrs, pmoreinfo=None):
     strs = pstrs
     moreinfo = pmoreinfo
     # may change when moreinfo is truly implemented.
-    wordLocation = moreinfo
+    if moreinfo is None:
+        wordLocation = []
+    else:
+        wordLocation = moreinfo
     # if mode.isDebug():
     #     print(common.str_2.wordFind.__name__)
     locations = extractWordsBraces(strs, wordLocation)
