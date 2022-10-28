@@ -9,9 +9,10 @@ class MyTestCase(unittest.TestCase):
             expect = f.read()
         # self.assertEqual(expect, result)
         # self.assertEqual(expect, expect)
-        self.assertEqual(expect, mainM.mainfunc('../test/testfile.c'))
+        # self.assertEqual(expect, mainM.mainfunc('../test/testfile.c'))
+        self.assertEqual(expect, mainM.mainfunc)
 
 
 if __name__ == '__main__':
-    unittest.main()
-    # unittest.main(module='mainM', argv='../test/testfile.c')
+    # unittest.main()
+    unittest.main(module='mainM', argv='../test/testfile.c')

@@ -30,7 +30,8 @@ import specific_cpp
 
 
 def mainfunc(file=None):
-    global mode
+    # global mode
+    mode = common.DevMode(common.MODE_DEBUG)
 
     if mode.isDebug():
         print(sys.argv)
@@ -46,16 +47,19 @@ def mainfunc(file=None):
             raise IndexError(estr)
     else:
         fileName = file
-    programDir = osp.dirname(sys.argv[0])
+    # programDir = osp.dirname(sys.argv[0])
+    programDir = osp.dirname(__file__)
+    if mode.isDebug():
+        print(OINFOHEADER + f'__file__: {__file__}')
+        print(OINFOHEADER + f'programDir: {programDir}')
     dirsep = '\\' if sys.platform=='win32' else '/'
+    fileName = osp.abspath(fileName)
     # fileName = osp.join(programDir, fileName)
-    # tlst = fileName.rsplit(sep=dirsep)
-    # fileName = tlst[-1]
     # print(fileName)
 
     if mode.isDebug():
         print(OINFOHEADER + f'fileName: {fileName}')
-        print(OINFOHEADER + 'programPath: ' + programDir)
+        print(OINFOHEADER + 'programDir: ' + programDir)
 
     # Check ext
     fileExt: common.ExtClass = common.ExtClass()
